@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './images/logo.svg';
 import logoMenu from './images/icon-menu.svg';
 import databiz from './images/client-databiz.svg';
@@ -25,9 +25,19 @@ import { almostBlack, almostWhite, fontFamily, fontSize, mediumGray } from './co
 
 function App() {
   const [sideOpen, setSideOpen] = useState(false)
+  const [windowSize, setWindowSize] = useState(null)
+
   const toggleMenu = () => {
     setSideOpen(!sideOpen)
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+  }, [])
 
   return (
     <Flex h={['auto', 'auto', '100vh']} w='100%' direction={'column'} justify={'flex-start'} alignItems={'center'} bgColor={almostWhite} fontFamily={fontFamily} position='relative' overflow={'hidden'}>
@@ -40,7 +50,7 @@ function App() {
           <Flex w={['0%', '0%', 'auto']} overflow={'hidden'}>
             <Flex alignItems={'center'} mx='15px'>
               <Menu>
-                <MenuButton as={'button'}>
+                <MenuButton as={'button'} cursor='pointer'>
                   Features
                 </MenuButton>
                 <Image src={down} w={'fit-content'} h='fit-content' ml={'10px'} transition={'.3s'} />
@@ -66,7 +76,7 @@ function App() {
             </Flex>
             <Flex alignItems={'center'} mx='15px'>
               <Menu>
-                <MenuButton as={'button'}>
+                <MenuButton as={'button'} cursor='pointer'>
                   Company
                 </MenuButton>
                 <Image src={down} w={'fit-content'} h='fit-content' ml={'10px'} transition={'.3s'} />
@@ -83,10 +93,10 @@ function App() {
                 </MenuList>
               </Menu>
             </Flex>
-            <Flex mx='15px'>
+            <Flex mx='15px' _active={{ fontWeight: 700 }} cursor='pointer'>
               Careers
             </Flex>
-            <Flex mx='15px'>
+            <Flex mx='15px' _active={{ fontWeight: 700 }} cursor='pointer'>
               About
             </Flex>
           </Flex>
@@ -95,21 +105,21 @@ function App() {
           <Image src={logoMenu} onClick={toggleMenu} />
         </Flex>
         <Flex display={['none', 'none', 'flex']}>
-          <Button color={mediumGray} bg={'none'} mr='20px'>Login</Button>
-          <Button color={mediumGray} bg={'none'} px='20px' border={`1px ${mediumGray} solid`}>Register</Button>
+          <Button color={mediumGray} bg={'none'} mr='20px' _hover={{ bgColor: 'none' }}>Login</Button>
+          <Button color={mediumGray} bg={'none'} px='20px' border={`1px ${mediumGray} solid`} _hover={{ bgColor: 'none' }}>Register</Button>
         </Flex>
       </Flex>
 
       <Flex direction={['column', 'column', 'row-reverse']} w={['100%', '100%', '85%']} h='100%' alignItems={'center'}>
         {/* hero img */}
-        <Flex w={['100%', '100%', '40%']} h={['100%', '100%', '70%']}>
+        <Flex w={['100%', '100%', '40%']} h={['100%', '100%', '70%']} justify='center'>
           <Image src={imgHeroMobile} objectFit='contain' display={['block', 'block', 'none']} />
           <Image src={imgHeroDesktop} objectFit='contain' display={['none', 'none', 'block']} />
         </Flex>
 
         <Flex direction={'column'} w={['80%', '80%', '60%']} h={['fit-content', 'fit-content', '70%']} alignSelf={'center'} justify='space-between'>
-          <Flex fontWeight={'700'} fontSize={['2.2rem', '2.2rem', '5rem']} mt='20px' justify={['center', 'center', 'flex-start']}>
-            Make remote work
+          <Flex fontWeight={'700'} fontSize={['1.7rem', '1.7rem', '5rem']} mt='20px' justify={['center', 'center', 'flex-start']}>
+            Make {windowSize > 800 ? <br /> : null} remote work
           </Flex>
           <Flex color={mediumGray} w={['95%', '95%', '80%']} textAlign={['center', 'center', 'left']} fontSize={[fontSize, fontSize, '1.5rem']} my='10px'>
             Get your team in sync, no matter your location. Streamline processes,
