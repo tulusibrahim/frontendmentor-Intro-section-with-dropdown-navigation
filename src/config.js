@@ -1,0 +1,5 @@
+export const almostWhite = 'hsl(0, 0%, 98%)'
+export const mediumGray = 'hsl(0, 0%, 41%)'
+export const almostBlack = 'hsl(0, 0%, 8%)'
+export const fontSize = '16px'
+export const fontFamily = 'Epilogue'
